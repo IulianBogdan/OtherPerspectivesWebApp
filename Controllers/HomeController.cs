@@ -11,9 +11,10 @@ namespace OtherPerspectivesWebApp.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        public IActionResult Home()
+        [Route("Index")]
+        public IActionResult Index()
         {
-            return Ok();
+            return View();
         }
         
         [Route("About")]
