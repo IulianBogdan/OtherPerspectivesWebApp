@@ -8,30 +8,33 @@ using OtherPerspectivesWebApp.Models;
 
 namespace OtherPerspectivesWebApp.Controllers
 {
+    [Route("Home")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Home()
         {
-            return View();
+            return Ok();
         }
-
+        
+        [Route("About")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
-            return View();
+            return Ok();
         }
-
+        
+        [Route("Contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return Ok();
         }
-
+        
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok();
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OtherPerspectivesWebApp.Models;
 
 namespace OtherPerspectivesWebApp
 {
@@ -22,6 +24,11 @@ namespace OtherPerspectivesWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<OtherPerspectivesContext>(options =>
+            {
+                var connectionString = Configuration.GetConnectionString("OtherPerspectivesDB");
+                options.UseSqlServer(connectionString);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +49,7 @@ namespace OtherPerspectivesWebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}");
             });
         }
     }
