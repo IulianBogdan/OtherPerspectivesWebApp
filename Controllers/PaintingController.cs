@@ -64,7 +64,7 @@ namespace OtherPerspectivesWebApp.Controllers
         }
         [Authorize]
         [HttpPost, Route("Delete")]
-        public IActionResult Edit(int paintingId)
+        public IActionResult Delete(int paintingId)
         {
             //do work
             return View();
