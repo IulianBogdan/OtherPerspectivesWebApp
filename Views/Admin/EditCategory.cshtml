@@ -1,0 +1,31 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Edit Category</h2>
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        <form method="post">
+            <div asp-validation-summary="All"></div>
+            <input asp-for="Id" type="hidden" />
+            <div>
+                <label asp-for="Name">Name: </label>
+                <div>
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                    <button type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+        <!-- /. ROW  -->
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>
