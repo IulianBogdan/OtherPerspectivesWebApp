@@ -1,10 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherPerspectivesWebApp", "OtherPerspectivesWebApp.csproj", "{B7831588-642A-40B5-8476-DC53992E4730}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Data", "Identity.Data\Identity.Data.csproj", "{9CB19649-9810-452E-8E97-638927ED657E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppApi", "..\OtherPerspectivesWebApi\AppApi\AppApi.csproj", "{23A5F5AF-36AF-45E3-98C8-06EF0979B7B8}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OtherPerspectivesWebApp", "OtherPerspectivesWebApp.csproj", "{B7831588-642A-40B5-8476-DC53992E4730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +15,11 @@ Global
 		{B7831588-642A-40B5-8476-DC53992E4730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7831588-642A-40B5-8476-DC53992E4730}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7831588-642A-40B5-8476-DC53992E4730}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CB19649-9810-452E-8E97-638927ED657E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CB19649-9810-452E-8E97-638927ED657E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CB19649-9810-452E-8E97-638927ED657E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CB19649-9810-452E-8E97-638927ED657E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23A5F5AF-36AF-45E3-98C8-06EF0979B7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23A5F5AF-36AF-45E3-98C8-06EF0979B7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23A5F5AF-36AF-45E3-98C8-06EF0979B7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23A5F5AF-36AF-45E3-98C8-06EF0979B7B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {447E101D-BA2B-4065-AAA2-BC3C0C962EA7}
 	EndGlobalSection
 EndGlobal
