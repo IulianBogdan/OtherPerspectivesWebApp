@@ -4,14 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using OtherPerspectivesWebApp.Data;
 using OtherPerspectivesWebApp.Models;
 
 namespace OtherPerspectivesWebApp
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -29,6 +32,12 @@ namespace OtherPerspectivesWebApp
                 var connectionString = Configuration.GetConnectionString("OtherPerspectivesDB");
                 options.UseSqlServer(connectionString);
             });
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("OtherPerspectivesDB")));
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,10 +51,8 @@ namespace OtherPerspectivesWebApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-
+            
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
