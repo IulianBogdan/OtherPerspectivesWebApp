@@ -14,8 +14,5 @@ namespace OtherPerspectivesWebApp.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Compare("Password", ErrorMessage = "Password does not match!")]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
     }
 }

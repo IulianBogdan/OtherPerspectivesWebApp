@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-
-namespace OtherPerspectivesWebApp.Models
+using OtherPerspectivesWebApp.Models;
+namespace OtherPerspectivesWebApp.Data
 {
     public sealed class OtherPerspectivesContext : DbContext
     {
-        public OtherPerspectivesContext(DbContextOptions options)
+        public OtherPerspectivesContext(DbContextOptions<OtherPerspectivesContext> options)
             : base(options)
         {
             Database.EnsureCreated();
