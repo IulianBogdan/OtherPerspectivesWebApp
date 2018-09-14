@@ -53,6 +53,9 @@ namespace OtherPerspectivesWebApp
             }
             
             app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
