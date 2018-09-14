@@ -9,7 +9,6 @@ using OtherPerspectivesWebApp.Models;
 
 namespace OtherPerspectivesWebApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
             [Route("")]
