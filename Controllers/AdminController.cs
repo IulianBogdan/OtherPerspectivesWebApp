@@ -92,9 +92,9 @@ namespace OtherPerspectivesWebApp.Controllers
         {
             using (var context = _context)
             {
-                var categoriesList = context.Orders.ToList();
+                var ordersList = context.Orders.ToList();
 
-                return View("Orders", categoriesList);
+                return View("Orders", ordersList);
             }
         }
 
@@ -133,6 +133,54 @@ namespace OtherPerspectivesWebApp.Controllers
             }
 
             return RedirectToAction("Orders");
+        }
+
+        [Route("Admin/Products")]
+        public IActionResult Products()
+        {
+            using (var context = _context)
+            {
+                var productsList = context.Products.ToList();
+
+                return View("Products", productsList);
+            }
+        }
+
+        [HttpGet]
+        [Route("Admin/EditProduct/{id}")]
+        public IActionResult EditProduct(int id)
+        {
+            using (var context = _context)
+            {
+                return View("EditProduct", context.Products.First(x => x.Id == id));
+            }
+        }
+
+        [HttpPost]
+        [Route("Admin/EditProduct/{id}")]
+        public IActionResult EditProduct([Bind("Price, Description, Title")] Product product)
+        {
+            using (var context = _context)
+            {
+                context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Products");
+        }
+
+        [Route("Admin/DeleteProducts/{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
+            using (var context = _context)
+            {
+                var product = context.Products.First(x => x.Id == id);
+
+                context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Products");
         }
     }
 }
