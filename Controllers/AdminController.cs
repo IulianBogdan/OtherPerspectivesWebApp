@@ -51,7 +51,7 @@ namespace OtherPerspectivesWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("Admin/Edit/{id}")]
+        [Route("Admin/EditCategory/{id}")]
         public IActionResult EditCategory(int id)
         {
             using (var context = _context)
@@ -61,7 +61,7 @@ namespace OtherPerspectivesWebApp.Controllers
         }
 
         [HttpPost]
-        [Route("Admin/Edit/{id}")]
+        [Route("Admin/EditCategory/{id}")]
         public IActionResult EditCategory([Bind("Id, Name")] Category category)
         {
             using (var context = _context)
@@ -85,6 +85,54 @@ namespace OtherPerspectivesWebApp.Controllers
             }
 
             return RedirectToAction("Categories");
+        }
+
+        [Route("Admin/Orders")]
+        public IActionResult Orders()
+        {
+            using (var context = _context)
+            {
+                var categoriesList = context.Orders.ToList();
+
+                return View("Orders", categoriesList);
+            }
+        }
+
+        [HttpGet]
+        [Route("Admin/EditOrder/{id}")]
+        public IActionResult EditOrder(int id)
+        {
+            using (var context = _context)
+            {
+                return View("EditOrder", context.Orders.First(x => x.Id == id));
+            }
+        }
+
+        [HttpPost]
+        [Route("Admin/EditOrder/{id}")]
+        public IActionResult EditOrder([Bind("Quantity, Address")] Order order)
+        {
+            using (var context = _context)
+            {
+                context.Entry(order).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Orders");
+        }
+
+        [Route("Admin/DeleteOrder/{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            using (var context = _context)
+            {
+                var order = context.Orders.First(x => x.Id == id);
+
+                context.Entry(order).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Orders");
         }
     }
 }

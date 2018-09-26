@@ -33,7 +33,6 @@ body {
     margin:10px 20px 10px 0px;
     background-color:#fff!important;
     padding:10px;
-    min-height:1050px;
 }
 .pad-top {
     padding-top:15px;
@@ -136,7 +135,6 @@ min-height: 80px;
      #page-wrapper{
                margin: 0 0 0 260px;
         padding: 15px 30px;
-        min-height: 1050px;
 		
     }
 	
