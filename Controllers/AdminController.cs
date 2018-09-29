@@ -13,11 +13,13 @@ namespace OtherPerspectivesWebApp.Controllers
     public class AdminController : Controller
     {
         private readonly OtherPerspectivesContext _context;
+        private readonly ApplicationDbContext _aspContext;
 
         //the framework handles this
-        public AdminController(OtherPerspectivesContext context)
+        public AdminController(OtherPerspectivesContext context, ApplicationDbContext aspContext)
         {
             _context = context;
+            _aspContext = aspContext;
         }
 
         [Route("Admin")]
@@ -169,7 +171,7 @@ namespace OtherPerspectivesWebApp.Controllers
             return RedirectToAction("Products");
         }
 
-        [Route("Admin/DeleteProducts/{id}")]
+        [Route("Admin/DeleteProduct/{id}")]
         public IActionResult DeleteProduct(int id)
         {
             using (var context = _context)
@@ -181,6 +183,36 @@ namespace OtherPerspectivesWebApp.Controllers
             }
 
             return RedirectToAction("Products");
+        }
+
+        [Route("Admin/Users")]
+        public IActionResult Users()
+        {
+            using (var context = _context)
+            {
+                var usersList = context.Users.ToList();
+
+                return View("Users", usersList);
+            }
+        }
+
+        [Route("Admin/DeleteUser/{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            using (var context = _context)
+            {
+                var user = context.Users.First(x => x.Id == id);
+
+                var aspUser = _aspContext.Users.First(x => x.Email == user.Email);
+
+                _aspContext.Entry(aspUser).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                _aspContext.SaveChanges();
+
+                context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("Users");
         }
     }
 }
