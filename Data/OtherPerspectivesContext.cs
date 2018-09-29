@@ -10,8 +10,6 @@ namespace OtherPerspectivesWebApp.Data
         {
             Database.EnsureCreated();
         }
-        
-        public DbSet<Painting> Paintings { get; set; }
 
         public DbSet<User> Users { get; set; }
 
