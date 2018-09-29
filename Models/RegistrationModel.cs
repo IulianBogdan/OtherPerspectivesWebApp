@@ -5,9 +5,20 @@ namespace OtherPerspectivesWebApp.Models
     public class RegistrationModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "Email")]
         public string EmailAdress { get; set; }
+        
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+        
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",

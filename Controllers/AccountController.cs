@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OtherPerspectivesWebApp.Data;
 using OtherPerspectivesWebApp.Models;
 
 namespace OtherPerspectivesWebApp.Controllers
@@ -13,14 +14,16 @@ namespace OtherPerspectivesWebApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly OtherPerspectivesContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager
-            )
+            SignInManager<ApplicationUser> signInManager,
+            OtherPerspectivesContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -84,8 +87,19 @@ namespace OtherPerspectivesWebApp.Controllers
             {
                 var user = new ApplicationUser { UserName = model.EmailAdress, Email = model.EmailAdress };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
+                    var internalUser = new User
+                    {
+                        Username = model.Username,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.EmailAdress
+                    };
+                        _context.Add(internalUser);
+                        _context.SaveChanges();
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
