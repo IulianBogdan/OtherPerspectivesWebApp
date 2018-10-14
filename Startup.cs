@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using OtherPerspectivesWebApp.Data;
 using OtherPerspectivesWebApp.Models;
+using OtherPerspectivesWebApp.Services;
 
 namespace OtherPerspectivesWebApp
 {
@@ -27,17 +28,25 @@ namespace OtherPerspectivesWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
             services.AddDbContext<OtherPerspectivesContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("OtherPerspectivesDB");
                 options.UseSqlServer(connectionString);
             });
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("OtherPerspectivesDB")));
             
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+                {
+                    config.SignIn.RequireConfirmedEmail = true;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OtherPerspectivesWebApp.Data;
 using OtherPerspectivesWebApp.Models;
+using OtherPerspectivesWebApp.Services;
+using OtherPerspectivesWebApp.Utilities;
 
 namespace OtherPerspectivesWebApp.Controllers
 {
@@ -76,7 +79,7 @@ namespace OtherPerspectivesWebApp.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -99,8 +102,9 @@ namespace OtherPerspectivesWebApp.Controllers
                     };
                         _context.Add(internalUser);
                         _context.SaveChanges();
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailConfirmationAsync(model.EmailAdress, callbackUrl);
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -108,6 +112,23 @@ namespace OtherPerspectivesWebApp.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         private void AddErrors(IdentityResult result)
