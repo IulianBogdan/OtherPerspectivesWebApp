@@ -86,6 +86,21 @@ namespace OtherPerspectivesWebApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.EmailAdress, Email = model.EmailAdress };
+               
+                using (_context)
+                {
+                    var internalUser = new InternalUser
+                    {
+                        Username = model.Username,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        EmailAdress = model.EmailAdress
+                    };
+                    
+                    _context.Add(internalUser);
+                    _context.SaveChanges();
+                }
+                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded)
