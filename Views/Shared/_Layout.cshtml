@@ -31,18 +31,17 @@
         <header>
             <div class="row">
                 <div class="col-md-3 top-info text-left mt-lg-4">
-                    <h6>Need Help</h6>
+                    <h6>Need help?</h6>
                     <ul>
                         <li>
-                            <i class="fas fa-phone"></i> Call
+                            <i class="fas fa-comments"></i> Chat with us!
                         </li>
-                        <li class="number-phone mt-3">12345678099</li>
                     </ul>
                 </div>
                 <div class="col-md-6 logo-w3layouts text-center">
                     <h1 class="logo-w3layouts">
-                        <a class="navbar-brand" href="index.html">
-                            Goggles
+                        <a href="index.html">
+                            <img src="/images/logo.png" width="110px" style="margin-top:-15px;vertical-align:unset;">
                         </a>
                     </h1>
                 </div>
@@ -66,34 +65,7 @@
                         </li>
                     </ul>
                     <!---->
-                    <div class="overlay-login text-left">
-                        <button type="button" class="overlay-close1">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                        <div class="wrap">
-                            <h5 class="text-center mb-4">Login Now</h5>
-                            <div class="login p-5 bg-dark mx-auto mw-100">
-                                <form action="#" method="post">
-                                    <div class="form-group">
-                                        <label class="mb-2">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" required="">
-                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-2">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" required="">
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary submit mb-4">Sign In</button>
-
-                                </form>
-                            </div>
-                            <!---->
-                        </div>
-                    </div>
+                    @await Html.PartialAsync("_LoginPartial")
                     <!---->
                 </div>
             </div>
@@ -141,7 +113,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
-                                Features
+                                Top Artists
                             </a>
                             <ul class="dropdown-menu mega-menu ">
                                 <li>
@@ -297,47 +269,18 @@
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                         <div class="carousel-caption text-center">
                             <h3>
-                                Men’s eyewear
-                                <span>Cool summer sale 50% off</span>
+                                Buy art directly from the artist
+                                <span>
+                                    Explore, discover and fall in love with art
+                                    from all over the world.
+                                </span>
                             </h3>
-                            <a href="shop.html" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="carousel-item item2">
-                        <div class="carousel-caption text-center">
-                            <h3>
-                                Women’s eyewear
-                                <span>Want to Look Your Best?</span>
-                            </h3>
-                            <a href="shop.html" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item item3">
-                        <div class="carousel-caption text-center">
-                            <h3>
-                                Men’s eyewear
-                                <span>Cool summer sale 50% off</span>
-                            </h3>
-                            <a href="shop.html" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item item4">
-                        <div class="carousel-caption text-center">
-                            <h3>
-                                Women’s eyewear
-                                <span>Want to Look Your Best?</span>
-                            </h3>
-                            <a href="shop.html" class="btn btn-sm animated-button gibson-three mt-4">Shop Now</a>
+                            <a href="shop.html" class="btn btn-sm animated-button gibson-three mt-4" style="border: 2px solid #170914;background-color: #170914;">Discover art</a>
                         </div>
                     </div>
                 </div>
@@ -354,10 +297,6 @@
         </div>
     </div>
     <!--//banner-sec-->
-    <div style="float:left;">
-        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </div>
-    @await Html.PartialAsync("_LoginPartial")
     <div>
         @RenderBody()
     </div>
@@ -371,8 +310,7 @@
                     </div>
                     <div class="footer-text">
                         <p>
-                            Curabitur non nulla sit amet nislinit tempus convallis quis ac lectus. lac inia eget consectetur sed, convallis at
-                            tellus. Nulla porttitor accumsana tincidunt.
+                            Browse through trending artists and art pieces from all over the world and we connect you directly with them ready to hang on your wall or place in your home.
                         </p>
                         <ul class="footer-social text-left mt-lg-4 mt-3">
 
@@ -510,18 +448,6 @@
         });
     </script>
     <!-- carousel -->
-    <!-- Count-down -->
-    <script src="js/simplyCountdown.js"></script>
-    <link href="css/simplyCountdown.css" rel='stylesheet' type='text/css' />
-    <script>
-        var d = new Date();
-        simplyCountdown('simply-countdown-custom', {
-            year: d.getFullYear(),
-            month: d.getMonth() + 2,
-            day: 25
-        });
-    </script>
-    <!--// Count-down -->
     <script src="js/owl.carousel.js"></script>
     <script>
         $(document).ready(function () {
