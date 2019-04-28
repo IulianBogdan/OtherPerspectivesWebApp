@@ -27,6 +27,9 @@ namespace OtherPerspectivesWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSession();
+            services.AddMemoryCache();
+            
             services.AddDbContext<OtherPerspectivesContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("OtherPerspectivesDB");
@@ -38,6 +41,10 @@ namespace OtherPerspectivesWebApp
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(Cart.GetCart);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +62,7 @@ namespace OtherPerspectivesWebApp
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
